@@ -18,7 +18,7 @@ export default function get<T = any>(
   // Handle both string and array paths
   const path = Array.isArray(pathParam) ? pathParam : pathParam.split(".");
 
-  let result = objectParam;
+  let result: any = objectParam;
   for (const key of path) {
     // Return default if current level is null/undefined
     // Prevents "Cannot read property of null" errors
@@ -30,5 +30,5 @@ export default function get<T = any>(
 
   // Return found value or default if undefined
   // Preserves null values while treating undefined as "not found"
-  return result !== undefined ? result : defaultValue;
+  return result !== undefined ? (result as T) : defaultValue;
 }
